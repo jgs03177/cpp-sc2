@@ -761,6 +761,11 @@ void Coordinator::Connect(int port) {
 }
 
 void Coordinator::LeaveGame() {
+    if (imp_->agents_.size() == 1) {
+        Agent* c = imp_->agents_.front();
+        c->Control()->RequestQuit();
+    }
+
     for (auto c : imp_->agents_) {
         c->Control()->RequestLeaveGame();
     }
