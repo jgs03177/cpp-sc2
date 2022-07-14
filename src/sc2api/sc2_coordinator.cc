@@ -662,6 +662,10 @@ Coordinator::Coordinator() {
 }
 
 Coordinator::~Coordinator() {
+    for (Agent* ag : imp_->agents_) {
+        const ProcessInfo& pi = ag->Control()->GetProcessInfo();
+        TerminateProcess(pi.process_id);
+    }
     delete imp_;
 }
 
